@@ -1,8 +1,6 @@
 import app from "./app";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 
-dotenv.config();
 const PORT = 5000;
 
 const mongoConnectionString = process.env.MONGO_CONNECTION_STRING;

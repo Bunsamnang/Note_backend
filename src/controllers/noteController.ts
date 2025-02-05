@@ -31,9 +31,22 @@ export const createNote: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const updateNote: RequestHandler = async (req, res, next) => {
+interface UpdateNoteBody {
+  newTitle: string;
+  newText: string;
+}
+
+interface NoteParams {
+  noteId: string;
+}
+export const updateNote: RequestHandler<
+  NoteParams,
+  unknown,
+  UpdateNoteBody,
+  unknown
+> = async (req, res, next) => {
   try {
-    const noteId = req.params.id;
+    const { noteId } = req.params;
     const { newTitle, newText } = req.body;
 
     if (!isValidObjectId(noteId)) {
@@ -54,9 +67,14 @@ export const updateNote: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const deleteNote: RequestHandler = async (req, res, next) => {
+export const deleteNote: RequestHandler<
+  NoteParams,
+  unknown,
+  unknown,
+  unknown
+> = async (req, res, next) => {
   try {
-    const noteId = req.params.id;
+    const { noteId } = req.params;
 
     if (!isValidObjectId(noteId)) {
       throw createHttpError(400, "Invalid note ID");
